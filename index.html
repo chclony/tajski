@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tajski w 28 dni</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08080f;
+    --surface: #0f0f1a;
+    --border: rgba(255,255,255,0.07);
+    --text: #ede8e0;
+    --muted: rgba(237,232,224,0.35);
+    --w1: #FF6B35;
+    --w2: #4ECDC4;
+    --w3: #A855F7;
+    --w4: #F59E0B;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Playfair Display', Georgia, serif;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #12072a 0%, #0d0d18 50%, #071222 100%);
+    padding: 44px 24px 36px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 75% 40%, rgba(255,107,53,0.1) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .header-inner { max-width: 700px; margin: 0 auto; position: relative; }
+  .header-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.28em;
+    color: var(--w1); text-transform: uppercase; margin-bottom: 14px;
+  }
+  h1 {
+    font-size: clamp(26px, 6vw, 40px);
+    font-weight: 400; line-height: 1.15;
+    letter-spacing: -0.02em; margin-bottom: 10px;
+  }
+  h1 span { color: var(--w1); }
+  .header-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--muted); margin-top: 10px;
+  }
+
+  /* PROGRESS BAR */
+  .progress-wrap { margin-top: 28px; }
+  .progress-labels {
+    display: flex; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--muted); margin-bottom: 8px;
+  }
+  .progress-track {
+    height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px;
+  }
+  .progress-fill {
+    height: 100%; border-radius: 2px;
+    background: linear-gradient(90deg, var(--w1), var(--w4));
+    transition: width 0.5s ease;
+  }
+
+  /* STATS */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 10px; padding: 20px 24px 0; max-width: 700px; margin: 0 auto;
+  }
+  .stat {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 8px; text-align: center;
+  }
+  .stat-icon { font-size: 18px; margin-bottom: 5px; }
+  .stat-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(15px, 3.5vw, 20px);
+    font-weight: 500; color: var(--w1);
+  }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-top: 3px; line-height: 1.4;
+  }
+
+  /* WEEK TABS */
+  .week-tabs {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 8px; padding: 22px 24px 0; max-width: 700px; margin: 0 auto;
+  }
+  .week-tab {
+    border-radius: 10px; padding: 13px 6px;
+    cursor: pointer; text-align: center;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+    transition: all 0.2s; color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .week-tab:hover { background: rgba(255,255,255,0.05); }
+  .week-tab.active { color: #08080f; }
+  .week-tab-num { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+  .week-tab-title { font-size: 11px; font-weight: 500; line-height: 1.2; }
+
+  /* WEEK SUBTITLE */
+  .week-sub {
+    padding: 14px 24px 0; max-width: 700px; margin: 0 auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.12em;
+  }
+
+  /* DAYS */
+  .days { padding: 12px 24px 32px; max-width: 700px; margin: 0 auto; }
+
+  .day-item { margin-bottom: 8px; }
+
+  .day-header {
+    display: flex; align-items: center; gap: 14px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 16px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .day-header:hover { background: rgba(255,255,255,0.04); }
+  .day-header.open {
+    border-radius: 12px 12px 0 0;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .check-btn {
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.2);
+    background: transparent; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: #08080f;
+    transition: all 0.2s; flex-shrink: 0;
+  }
+  .check-btn.done { font-size: 13px; }
+
+  .day-meta { flex: 1; min-width: 0; }
+  .day-top {
+    display: flex; align-items: center; gap: 10px;
+    flex-wrap: wrap; margin-bottom: 3px;
+  }
+  .day-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em;
+  }
+  .day-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--muted);
+  }
+  .day-topic {
+    font-size: 15px; font-weight: 400;
+    transition: color 0.2s;
+  }
+  .day-topic.done { color: var(--muted); }
+  .day-focus { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
+
+  .day-arrow {
+    font-size: 18px; color: rgba(255,255,255,0.2);
+    transition: transform 0.2s; flex-shrink: 0;
+  }
+  .day-arrow.open { transform: rotate(90deg); }
+
+  /* DAY EXPANDED */
+  .day-body {
+    display: none;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-top: none; border-radius: 0 0 12px 12px;
+    padding: 16px 16px 20px;
+  }
+  .day-body.open { display: block; }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.18em;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+
+  .word-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .word-item {
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px; padding: 9px 13px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: rgba(237,232,224,0.8);
+    letter-spacing: 0.02em;
+  }
+
+  .task-box {
+    border-radius: 10px; padding: 13px 15px;
+  }
+  .task-text {
+    font-size: 13px; color: rgba(237,232,224,0.85);
+    line-height: 1.65; margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* FOOTER */
+  .footer {
+    max-width: 700px; margin: 0 auto;
+    padding: 20px 24px 44px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-text {
+    font-style: italic; font-size: 12px;
+    color: var(--muted); line-height: 1.8;
+  }
+
+  /* RESET BTN */
+  .reset-btn {
+    display: block; margin: 0 auto 0;
+    background: transparent; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 8px 20px;
+    color: var(--muted); font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; cursor: pointer; transition: all 0.2s;
+    margin-top: 16px;
+  }
+  .reset-btn:hover { border-color: rgba(255,100,100,0.4); color: rgba(255,120,120,0.7); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-label">Plan nauki • 28 dni</div>
+    <h1>Tajski w 80%<br><span>przez 20% wysiłku</span></h1>
+    <div class="header-sub">Korat / Isaan &nbsp;•&nbsp; Tylko mowa &nbsp;•&nbsp; 15 min dziennie</div>
+    <div class="progress-wrap">
+      <div class="progress-labels">
+        <span>Postęp</span>
+        <span id="progress-label">0/28 dni • 0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-icon">📚</div><div class="stat-val">~300</div><div class="stat-label">Słów do opanowania</div></div>
+  <div class="stat"><div class="stat-icon">⏱</div><div class="stat-val">15–20</div><div class="stat-label">Minut dziennie</div></div>
+  <div class="stat"><div class="stat-icon">🎯</div><div class="stat-val">~80%</div><div class="stat-label">Pokrycie rozmów</div></div>
+  <div class="stat"><div class="stat-icon">📅</div><div class="stat-val">4</div><div class="stat-label">Tygodnie</div></div>
+</div>
+
+<div class="week-tabs" id="week-tabs"></div>
+<div class="week-sub" id="week-sub"></div>
+<div class="days" id="days"></div>
+
+<div class="footer">
+  <div class="footer-text">
+    Zasada: żona jest Twoim głównym nauczycielem. Plan daje strukturę — ona daje prawdziwy język.<br>
+    Każde "krap" na końcu zdania buduje szacunek. Każdy dzień to cegiełka.
+  </div>
+  <button class="reset-btn" onclick="resetProgress()">↺ Zresetuj postępy</button>
+</div>
+
+<script>
+const weeks = [
+  {
+    number: 1, title: "Przetrwanie", subtitle: "Pierwsze 48h w Tajlandii", color: "#FF6B35",
+    days: [
+      { day: 1, topic: "Przywitania i grzeczności", focus: "Fundament każdej rozmowy", time: "15 min",
+        words: ["sa-wat-dee krap (cześć / dzień dobry)", "kop-kun krap (dziękuję)", "mai-pen-rai (nie ma sprawy)", "kor-tod krap (przepraszam)", "la-gon krap (do widzenia)"],
+        task: "Powiedz żonie 'sa-wat-dee krap' i 'kop-kun krap' minimum 10x naturalnie w ciągu dnia." },
+      { day: 2, topic: "Tony — kalibracja ucha", focus: "Bez tonów nie ma komunikacji", time: "15 min",
+        words: ["mai → (płaski) = nie", "mài ↘ (opadający) = drewno", "mái ↗ (wznoszący) = pytanie?", "mâi ↓ (niski) = jedwab", "Ćwicz z żoną — ona koryguje"],
+        task: "Powiedz żonie 'mai' na 5 różnych sposobów. Słuchaj jej reakcji i poprawek." },
+      { day: 3, topic: "Liczby 1–10", focus: "Targowanie, ceny, wiek", time: "15 min",
+        words: ["neung (1)", "song (2)", "sam (3)", "see (4)", "ha (5)", "hok (6)", "jet (7)", "paet (8)", "gao (9)", "sip (10)"],
+        task: "Zapytaj żonę o cenę 3 losowych rzeczy w domu po tajsku." },
+      { day: 4, topic: "Jedzenie — podstawy", focus: "Codzienność w Korat", time: "15 min",
+        words: ["a-roi (pyszne)", "a-roi mak (bardzo pyszne)", "pet (ostre)", "mai pet (nieostre)", "nam (woda)", "kao (ryż)", "gai (kurczak)", "moo (wieprzowina)"],
+        task: "Przy kolacji powiedz 'a-roi mak krap' i spróbuj zamówić jedzenie po tajsku." },
+      { day: 5, topic: "Pytania podstawowe", focus: "Otwierasz rozmowę", time: "15 min",
+        words: ["nee tao-rai? (ile to kosztuje?)", "nee a-rai? (co to jest?)", "yoo tee-nai? (gdzie jest?)", "pen-yang-ngai? (jak się masz?)", "sabai dee mai? (dobrze?)", "sabai dee krap (dobrze, dziękuję)"],
+        task: "Zadaj żonie 3 pytania po tajsku o dowolne rzeczy w domu." },
+      { day: 6, topic: "Powtórka Tydzień 1", focus: "Utrwalanie bez ściągawki", time: "20 min",
+        words: ["Wszystkie zwroty z dni 1–5", "Nagraj siebie telefonem — posłuchaj", "Poproś żonę o ocenę tonów", "Które słowa brzmią naturalnie?"],
+        task: "Przeprowadź 5-minutową rozmowę z żoną używając TYLKO tajskiego. Ona nie tłumaczy." },
+      { day: 7, topic: "Dzień wolny — słuchanie", focus: "Pasywna nauka", time: "30 min pasywnie",
+        words: ["Włącz tajskie radio lub YouTube po tajsku", "Nie tłumacz — po prostu słuchaj rytmu", "Zwróć uwagę na melodię i tempo języka", "Wypisz 3 słowa które brzmiały znajomo"],
+        task: "30 minut tajskiego w tle podczas innych czynności — gotowania, spaceru, etc." }
+    ]
+  },
+  {
+    number: 2, title: "Rodzina i Dom", subtitle: "Życie w Korat na co dzień", color: "#4ECDC4",
+    days: [
+      { day: 8, topic: "Rodzina żony — nazwy", focus: "Podstawa relacji w Tajlandii", time: "15 min",
+        words: ["por (tata)", "mae (mama)", "pee (starsze rodzeństwo / osoba starsza)", "nong (młodsze rodzeństwo)", "lung (wujek od strony mamy)", "pa (ciotka od strony mamy)", "na (wujek/ciotka od strony taty)"],
+        task: "Naucz się imion rodziny żony + odpowiednich tytułów grzecznościowych dla każdej osoby." },
+      { day: 9, topic: "Dom i przestrzeń", focus: "Codzienne polecenia", time: "15 min",
+        words: ["ban (dom)", "hong-nam (łazienka)", "hong-non (sypialnia)", "hong-krua (kuchnia)", "pai (idę)", "ma (chodź / przyszedłem)", "yoo (jestem w... / jest w...)"],
+        task: "Przez cały dzień mów żonie gdzie jesteś w domu — po tajsku." },
+      { day: 10, topic: "Czas i godziny", focus: "Umawianie się", time: "15 min",
+        words: ["wan-nee (dzisiaj)", "prung-nee (jutro)", "mua-wan (wczoraj)", "dee-ow (zaraz / za chwilę)", "reow-reow (szybko)", "cha-cha (wolno / poczekaj)"],
+        task: "Powiedz żonie plan na jutro w całości po tajsku." },
+      { day: 11, topic: "Emocje i stan", focus: "Wyrażasz siebie", time: "Cały dzień — po 5 sek.",
+        words: ["dee-jai (szczęśliwy/a)", "mai sa-bai (niedobrze mi)", "nuay (zmęczony/a)", "hiu (głodny/a)", "im (najedzony/a)", "ron (gorąco mi)", "yen (zimno / chłodno)"],
+        task: "Przez cały dzień komunikuj swój aktualny stan po tajsku do żony zamiast po polsku." },
+      { day: 12, topic: "Zakupy na targu", focus: "Korat ma świetne targi", time: "15 min + wyjście",
+        words: ["ao (chcę / wezmę to)", "mai ao (nie chcę)", "tao-rai? (ile kosztuje?)", "paeng (drogo)", "lot noi dai mai? (czy można taniej?)", "ok! (okej / dobrze!)"],
+        task: "Wyjdź z żoną na targ i targuj się sam — bez jej pomocy. Ona tylko obserwuje." },
+      { day: 13, topic: "Restauracja — zamawiasz sam", focus: "Niezależność", time: "15 min + wyjście",
+        words: ["ao... neung (poproszę jedno...)", "mai sai... (bez... proszę)", "khor menu noi (poproszę menu)", "check bin krap (rachunek poproszę)", "ped nid noi (trochę ostrego)"],
+        task: "Zamów cały posiłek sam, bez pomocy żony — od menu do rachunku." },
+      { day: 14, topic: "Powtórka Tydzień 2", focus: "Mini dialog", time: "20 min",
+        words: ["Połącz tygodnie 1 i 2 razem", "Spróbuj 10-minutowej rozmowy z żoną", "Ona mówi TYLKO po tajsku — Ty też", "Jeśli nie wiesz słowa — opisz je innymi słowami"],
+        task: "10 minut rozmowy TYLKO po tajsku z żoną. Bez angielskiego, bez polskiego." }
+    ]
+  },
+  {
+    number: 3, title: "Komunikacja", subtitle: "Rozumiesz i odpowiadasz", color: "#A855F7",
+    days: [
+      { day: 15, topic: "Czasowniki ruchu", focus: "Opisujesz co robisz", time: "15 min",
+        words: ["pai (iść / idę)", "ma (przyjść / przyszedłem)", "gin (jeść)", "deum (pić)", "non (spać)", "tam (robić / robię)", "doo (oglądać / patrzeć)"],
+        task: "Opisz żonie swój wczorajszy dzień jako historyjkę — tylko po tajsku." },
+      { day: 16, topic: "Negacje i potwierdzenia", focus: "Zgadzasz się lub nie", time: "15 min",
+        words: ["chai (tak)", "mai chai (nie / to nieprawda)", "mai + czasownik (nie robię)", "chai mai? (prawda? / tak?)", "nae-jai (na pewno)", "mai nae (nie jestem pewien)"],
+        task: "Odpowiadaj na wszystkie pytania żony przez cały dzień tylko po tajsku." },
+      { day: 17, topic: "Przymiotniki — opis", focus: "Wyrażasz opinię", time: "15 min",
+        words: ["dee (dobry)", "mai dee (zły / niedobry)", "suay (piękny)", "yai (duży)", "lek (mały)", "mai (nowy)", "gao (stary)", "phaeng (drogi cenowo)"],
+        task: "Opisz 5 rzeczy wokół siebie po tajsku — minimum 2 przymiotniki na rzecz." },
+      { day: 18, topic: "Transport i droga", focus: "Poruszasz się po Korat", time: "15 min + wyjście",
+        words: ["rot (samochód)", "mot-sie (motocykl)", "song-taew (minibus / pickup taxi)", "pai... dai yang-ngai? (jak dojść do...?)", "glai (daleko)", "glai glai (blisko)"],
+        task: "Zapytaj kogoś obcego o drogę do dowolnego miejsca — po tajsku." },
+      { day: 19, topic: "Zdrowie i apteka", focus: "Ważne w każdym kraju", time: "15 min",
+        words: ["mai sa-bai (niedobrze / choruję)", "jep (boli)", "jep hua (boli głowa)", "jep tong (boli brzuch)", "rong-pa-ya-ban (szpital)", "ran-kai-ya (apteka)", "ya (lekarstwo)"],
+        task: "Opisz żonie wymyślony objaw choroby po tajsku — ona udaje lekarza." },
+      { day: 20, topic: "Pogoda i small talk", focus: "Rozmowa z sąsiadami", time: "Wyjście",
+        words: ["fon tok (pada deszcz)", "ron mak (bardzo gorąco)", "yen (chłodno / zimno)", "lom (wiatr)", "fa (niebo)", "arkat dee (ładna pogoda)"],
+        task: "Zagadaj sąsiada lub kogoś znajomego o pogodę — po tajsku. Uśmiech obowiązkowy." },
+      { day: 21, topic: "Powtórka Tydzień 3", focus: "Rozmowa bez ściągawki", time: "25 min",
+        words: ["Powtórz wszystkie 3 tygodnie razem", "Bez zaglądania w notatki", "Żona ocenia: tony, słownictwo, naturalność", "Gdzie czujesz największe luki?"],
+        task: "15-minutowa rozmowa z żoną na dowolny temat — bez żadnej pomocy." }
+    ]
+  },
+  {
+    number: 4, title: "Płynność", subtitle: "Łączysz wszystko razem", color: "#F59E0B",
+    days: [
+      { day: 22, topic: "Opowiadanie historii", focus: "Przeszłość i przyszłość", time: "15 min",
+        words: ["lew (już / wskazuje przeszłość)", "ja (będę / wskazuje przyszłość)", "gam-lang (właśnie teraz robię)", "gon (wcześniej / przedtem)", "lang-jak-nan (potem / następnie)"],
+        task: "Opowiedz żonie co robiłeś wczoraj i co planujesz jutro — po tajsku." },
+      { day: 23, topic: "Pytania zaawansowane", focus: "Głębsza rozmowa", time: "15 min",
+        words: ["tam-mai? (dlaczego?)", "yang-ngai? (jak? / w jaki sposób?)", "mua-rai? (kiedy?)", "krai? (kto?)", "tee-nai? (gdzie?)", "a-rai? (co?)"],
+        task: "Zadaj żonie 10 różnych pytań po tajsku — ona odpowiada po tajsku." },
+      { day: 24, topic: "Słowa Isaan / Korat", focus: "Rozumiesz rodzinę żony", time: "15 min",
+        words: ["bo (nie — Isaan, zamiast 'mai')", "sao (smutny — Isaan)", "mak (bardzo — w Isaan używane częściej)", "bak (mówić / usta — Isaan)", "Zapytaj żonę o 5 słów których używa z rodziną"],
+        task: "Zapytaj żonę o 5–10 słów lub zwrotów charakterystycznych dla jej rodziny i regionu." },
+      { day: 25, topic: "Komplement i grzeczność", focus: "Serce tajskiej kultury", time: "Codziennie",
+        words: ["suay mak (bardzo piękna)", "geng mak (bardzo zdolny / świetnie Ci idzie)", "jai dee (masz dobre serce)", "kreng-jai (nie chcę sprawić kłopotu — ważne pojęcie!)", "sanuk (fajnie / zabawa)"],
+        task: "Powiedz żonie i jednej osobie z jej rodziny szczery komplement po tajsku." },
+      { day: 26, topic: "Słuchanie ze zrozumieniem", focus: "Trening ucha", time: "30 min",
+        words: ["Włącz tajski serial lub YouTube", "Nie tłumacz wszystkiego — łap znane słowa", "Wypisz 5 słów które rozpoznałeś", "Zapytaj żonę co znaczyły niezrozumiałe fragmenty"],
+        task: "30 minut tajskiego serialu — wypisz 5 słów które rozpoznałeś ze słuchu." },
+      { day: 27, topic: "Sytuacje awaryjne", focus: "Bezpieczeństwo", time: "10 min",
+        words: ["chuay duay! (pomocy!)", "reeak tam-ruat (wezwij policję)", "fai-mai (pożar)", "rot-pa-ya-ban (karetka)", "mai kao-jai (nie rozumiem)", "phoot cha-cha noi (mów wolniej proszę)"],
+        task: "Naucz się tych zwrotów na pamięć — mogą mieć realne znaczenie." },
+      { day: 28, topic: "EGZAMIN MIESIĘCZNY 🎓", focus: "Sprawdzasz postępy", time: "20 min",
+        words: ["Żona przeprowadza rozmowę po tajsku — 20 minut", "Różne tematy: rodzina, jedzenie, plany, uczucia", "Ona ocenia: tony, płynność, słownictwo", "Bądź z siebie dumny — to dopiero początek"],
+        task: "20-minutowa rozmowa z żoną na różne tematy. Ona ocenia Twoje postępy szczerze i bez taryfy ulgowej." }
+    ]
+  }
+];
+
+let activeWeek = 0;
+let activeDay = null;
+let completed = {};
+
+function loadProgress() {
+  const saved = localStorage.getItem('tajski-completed');
+  if (saved) completed = JSON.parse(saved);
+}
+
+function saveProgress() {
+  localStorage.setItem('tajski-completed', JSON.stringify(completed));
+}
+
+function resetProgress() {
+  if (confirm('Zresetować wszystkie postępy? Tej operacji nie można cofnąć.')) {
+    completed = {};
+    saveProgress();
+    updateProgress();
+    renderDays();
+  }
+}
+
+function updateProgress() {
+  const count = Object.values(completed).filter(Boolean).length;
+  const pct = Math.round((count / 28) * 100);
+  document.getElementById('progress-label').textContent = `${count}/28 dni • ${pct}%`;
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+function renderWeekTabs() {
+  const container = document.getElementById('week-tabs');
+  container.innerHTML = weeks.map((w, i) => `
+    <div class="week-tab ${i === activeWeek ? 'active' : ''}"
+         style="${i === activeWeek ? `background:${w.color};border-color:${w.color}` : ''}"
+         onclick="selectWeek(${i})">
+      <div class="week-tab-num">Tydz. ${w.number}</div>
+      <div class="week-tab-title">${w.title}</div>
+    </div>
+  `).join('');
+}
+
+function selectWeek(i) {
+  activeWeek = i;
+  activeDay = null;
+  renderWeekTabs();
+  document.getElementById('week-sub').textContent = weeks[i].subtitle;
+  renderDays();
+}
+
+function renderDays() {
+  const w = weeks[activeWeek];
+  const container = document.getElementById('days');
+  container.innerHTML = w.days.map((d, i) => {
+    const isDone = !!completed[d.day];
+    const isOpen = activeDay === i;
+    return `
+      <div class="day-item">
+        <div class="day-header ${isOpen ? 'open' : ''}" onclick="toggleDay(${i})"
+             style="${isOpen ? `border-color:${w.color}40` : ''}">
+          <button class="check-btn ${isDone ? 'done' : ''}"
+                  style="${isDone ? `border-color:${w.color};background:${w.color}` : ''}"
+                  onclick="event.stopPropagation();toggleDone(${d.day})">
+            ${isDone ? '✓' : ''}
+          </button>
+          <div class="day-meta">
+            <div class="day-top">
+              <span class="day-num" style="color:${w.color}">DZIEŃ ${d.day}</span>
+              <span class="day-time">${d.time}</span>
+            </div>
+            <div class="day-topic ${isDone ? 'done' : ''}">${d.topic}</div>
+            <div class="day-focus">${d.focus}</div>
+          </div>
+          <div class="day-arrow ${isOpen ? 'open' : ''}">›</div>
+        </div>
+        <div class="day-body ${isOpen ? 'open' : ''}" style="${isOpen ? `border-color:${w.color}30` : ''}">
+          <div class="section-label" style="color:${w.color}">Słownictwo / materiał</div>
+          <div class="word-list">
+            ${d.words.map(word => `<div class="word-item">${word}</div>`).join('')}
+          </div>
+          <div class="task-box" style="background:${w.color}18;border:1px solid ${w.color}35">
+            <div class="section-label" style="color:${w.color}">🎯 Zadanie dnia</div>
+            <div class="task-text">${d.task}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleDay(i) {
+  activeDay = activeDay === i ? null : i;
+  renderDays();
+}
+
+function toggleDone(dayNum) {
+  completed[dayNum] = !completed[dayNum];
+  saveProgress();
+  updateProgress();
+  renderDays();
+}
+
+// Init
+loadProgress();
+updateProgress();
+renderWeekTabs();
+document.getElementById('week-sub').textContent = weeks[0].subtitle;
+renderDays();
+</script>
+</body>
+</html>
