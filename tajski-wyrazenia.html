@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tajski">
+<meta name="theme-color" content="#0a0a0a">
+<title>Tajski 280 wyrazen</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0a;--s:#111;--s2:#161616;--br:rgba(255,255,255,0.07);--t:#e8e2d9;--m:rgba(232,226,217,0.38);--a:#c9a96e;--a2:#7eb8a4;--r:#c97070}
+body{background:var(--bg);color:var(--t);font-family:'Cormorant Garamond',Georgia,serif;min-height:100vh;overflow-x:hidden}
+.hdr{padding:44px 24px 32px;border-bottom:1px solid var(--br);background:linear-gradient(160deg,#0f0c07 0%,#0a0a0a 60%);position:relative;overflow:hidden}
+.hdr::after{content:'Thai';position:absolute;right:-10px;top:10px;font-size:80px;color:rgba(201,169,110,0.04);pointer-events:none}
+.hi{max-width:680px;margin:0 auto;position:relative}
+.ey{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.3em;color:var(--a);text-transform:uppercase;margin-bottom:14px}
+h1{font-size:clamp(30px,7vw,50px);font-weight:300;line-height:1.08;letter-spacing:-.01em}
+h1 em{color:var(--a);font-style:italic}
+.sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--m);margin-top:12px;line-height:1.7}
+.pw{margin-top:22px}
+.pr{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);margin-bottom:7px}
+.pt{height:2px;background:rgba(255,255,255,0.07);border-radius:1px}
+.pf{height:100%;border-radius:1px;background:linear-gradient(90deg,var(--a),var(--a2));transition:width .5s ease}
+.stats{max-width:680px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:16px 24px 0}
+.stat{background:var(--s);border:1px solid var(--br);border-radius:8px;padding:12px 8px;text-align:center}
+.sv{font-family:'JetBrains Mono',monospace;font-size:clamp(14px,3.5vw,19px);color:var(--a)}
+.sl{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--m);text-transform:uppercase;letter-spacing:.07em;margin-top:4px;line-height:1.4}
+.wtabs{max-width:680px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:20px 24px 0}
+.wtab{border:1px solid var(--br);border-radius:8px;padding:11px 6px;cursor:pointer;text-align:center;background:var(--s);transition:all .2s;font-family:'JetBrains Mono',monospace;color:var(--m)}
+.wtab:hover{background:var(--s2);color:var(--t)}
+.wtab.active{border-color:var(--a);background:rgba(201,169,110,0.08);color:var(--a)}
+.wtn{font-size:9px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:3px}
+.wtt{font-size:10px;font-weight:500;line-height:1.3}
+.winfo{max-width:680px;margin:0 auto;padding:14px 24px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.wsub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);text-transform:uppercase;letter-spacing:.15em}
+.mtog{display:flex;gap:6px}
+.mbtn{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--br);background:transparent;color:var(--m);border-radius:6px;padding:5px 10px;cursor:pointer;transition:all .18s}
+.mbtn.active{border-color:var(--a2);color:var(--a2);background:rgba(126,184,164,0.08)}
+.days{max-width:680px;margin:0 auto;padding:12px 24px 32px}
+.dc{margin-bottom:8px}
+.dh{display:flex;align-items:center;gap:14px;background:var(--s);border:1px solid var(--br);border-radius:10px;padding:14px 16px;cursor:pointer;transition:all .18s}
+.dh:hover{background:var(--s2)}
+.dh.open{border-radius:10px 10px 0 0;border-color:rgba(201,169,110,0.25);background:var(--s2)}
+.cb{width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.18);background:transparent;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:#0a0a0a;transition:all .2s}
+.cb.done{border-color:var(--a);background:var(--a)}
+.dm{flex:1;min-width:0}
+.dt{display:flex;align-items:center;gap:8px;margin-bottom:3px;flex-wrap:wrap}
+.dn{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--a)}
+.dti{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--m)}
+.dtop{font-size:15px;font-weight:400;line-height:1.3}
+.dtop.done{color:var(--m)}
+.df{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);margin-top:2px}
+.da{font-size:16px;color:var(--m);transition:transform .2s;flex-shrink:0}
+.da.open{transform:rotate(90deg)}
+.db{display:none;background:var(--s2);border:1px solid rgba(201,169,110,0.15);border-top:none;border-radius:0 0 10px 10px}
+.db.open{display:block}
+.elist{padding:4px 16px 0}
+.ei{border-bottom:1px solid var(--br);padding:14px 0;display:flex;gap:14px;align-items:flex-start}
+.ei:last-child{border-bottom:none}
+.en{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);min-width:20px;padding-top:2px}
+.ec{flex:1}
+.eth{font-size:17px;font-weight:400;color:var(--t);margin-bottom:3px}
+.eph{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--a);margin-bottom:4px}
+.eex{font-size:13px;color:var(--m);font-style:italic;line-height:1.5}
+.fm{padding:16px}
+.fnav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.fco{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m)}
+.fdots{display:flex;gap:4px}
+.fdot{width:5px;height:5px;border-radius:50%;background:var(--br);transition:all .2s}
+.fdot.active{background:var(--a)}
+.fdot.known{background:var(--a2)}
+.fc{background:var(--s);border:1px solid var(--br);border-radius:12px;padding:28px 20px;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.fc:hover{border-color:rgba(201,169,110,0.3)}
+.fc.rev{border-color:rgba(126,184,164,0.3);background:rgba(126,184,164,0.04)}
+.ffront{width:100%}
+.fthai{font-size:22px;font-weight:300;margin-bottom:6px}
+.fhint{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.15em;margin-top:16px}
+.fback{width:100%;display:none}
+.fback.show{display:block}
+.ffront.hide{display:none}
+.fph{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--a);margin-bottom:10px}
+.fex{font-size:14px;color:var(--m);font-style:italic;line-height:1.6}
+.fbts{display:flex;gap:8px;margin-top:14px}
+.fbt{flex:1;padding:10px;border-radius:8px;border:1px solid var(--br);background:transparent;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;transition:all .18s}
+.fbt.bad{color:var(--r);border-color:rgba(201,112,112,0.25)}
+.fbt.bad:hover{background:rgba(201,112,112,0.08)}
+.fbt.good{color:var(--a2);border-color:rgba(126,184,164,0.25)}
+.fbt.good:hover{background:rgba(126,184,164,0.08)}
+.fbt.nxt{color:var(--a);border-color:rgba(201,169,110,0.25)}
+.fbt.nxt:hover{background:rgba(201,169,110,0.08)}
+.footer{max-width:680px;margin:0 auto;padding:20px 24px 48px;border-top:1px solid var(--br)}
+.ft{font-style:italic;font-size:13px;color:var(--m);line-height:1.8}
+.rb{margin-top:14px;background:transparent;border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:8px 18px;color:var(--m);font-family:'JetBrains Mono',monospace;font-size:10px;cursor:pointer;transition:all .2s}
+.rb:hover{border-color:rgba(201,112,112,0.3);color:var(--r)}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hi">
+    <div class="ey">280 wyrazen &bull; 28 dni &bull; progresja 20/80</div>
+    <h1>Tajski<br><em>w wyrazeniach</em></h1>
+    <div class="sub">10 wyrazen dziennie &middot; wymowa fonetyczna &middot; przyklad uzycia<br>Korat / Isaan &middot; tylko mowa</div>
+    <div class="pw">
+      <div class="pr"><span>Postep</span><span id="plabel">0/28 dni &middot; 0%</span></div>
+      <div class="pt"><div class="pf" id="pfill" style="width:0%"></div></div>
+    </div>
+  </div>
+</div>
+<div class="stats">
+  <div class="stat"><div class="sv">280</div><div class="sl">Wyrazen</div></div>
+  <div class="stat"><div class="sv">10</div><div class="sl">Dziennie</div></div>
+  <div class="stat"><div class="sv">~80%</div><div class="sl">Pokrycie</div></div>
+  <div class="stat"><div class="sv">28</div><div class="sl">Dni</div></div>
+</div>
+<div class="wtabs" id="wtabs"></div>
+<div class="winfo">
+  <div class="wsub" id="wsub"></div>
+  <div class="mtog">
+    <button class="mbtn active" id="btnL" onclick="setMode('list')">Lista</button>
+    <button class="mbtn" id="btnF" onclick="setMode('flash')">Fiszki</button>
+  </div>
+</div>
+<div class="days" id="days"></div>
+<div class="footer">
+  <div class="ft">Kazde wyrazenie powtorz glosno minimum 3 razy. Zona koryguje tony.</div>
+  <button class="rb" onclick="resetP()">Reset postepow</button>
+</div>
+<script>
+var D=[
+{w:1,title:"Fundament",sub:"Najczestsze wyrazenia w kazdej rozmowie",days:[
+{d:1,top:"Powitania i pozegnania",foc:"Uzywasz 20x dziennie",ex:[
+{t:"Sawatdee krap",p:"sa-wat-dee krap",e:"Czesc / Dzien dobry - mowisz do kazdego, zawsze, z lekkim sklonem glowy."},
+{t:"Sa-bai dee mai?",p:"sa-bai dee mai",e:"Jak sie masz? - pytasz sasiada rano przed wyjsciem."},
+{t:"Sa-bai dee krap",p:"sa-bai dee krap",e:"Dobrze, dziekuje - odpowiadasz gdy ktos pyta o samopoczucie."},
+{t:"Kop-kun krap",p:"kop-kun krap",e:"Dziekuje - po kazdym posilku, zakupie, przysludze."},
+{t:"Mai pen rai",p:"mai pen rai",e:"Nie ma sprawy - uslyszysz to 50x dziennie. Odpowiadaj tym samym."},
+{t:"Kor-tot krap",p:"kor-tot krap",e:"Przepraszam - gdy mijasz kogos w waskim przejsciu na targu."},
+{t:"La-gon krap",p:"la-gon krap",e:"Do widzenia - gdy wychodzisz ze sklepu lub od rodziny."},
+{t:"Jer-gan na",p:"jer-gan na",e:"Do zobaczenia - mowisz do znajomych: jer-gan na krap!"},
+{t:"Lew jer-gan",p:"lew jer-gan",e:"To sie zobaczymy - bardziej potoczne, uzywasz z rodzina zony."},
+{t:"Fak rak-sa suk-ka-pap duay",p:"fak rak-sa suk-ka-pap duay",e:"Dbaj o siebie - mowisz to dzwoniac do tesciowej."}
+]},
+{d:2,top:"Prosby i potrzeby",foc:"Prosisz o cos bez kreppacji",ex:[
+{t:"Kor... noi krap",p:"kor ... noi krap",e:"Poprosze... - kor nam noi krap = poprosze wode."},
+{t:"Ao... krap",p:"ao ... krap",e:"Wezme... / Chce... - na targu: ao nee krap = wezme to."},
+{t:"Mai ao krap",p:"mai ao krap",e:"Nie chce - handlarz oferuje cos: mai ao krap, kop-kun."},
+{t:"Chuay noi dai mai?",p:"chuay noi dai mai",e:"Czy mozesz pomoc? - do sasiada gdy potrzebujesz pomocy."},
+{t:"Kor doo noi dai mai?",p:"kor doo noi dai mai",e:"Czy moge zobaczyc? - w sklepie przed zakupem."},
+{t:"Mee mai krap?",p:"mee mai krap",e:"Czy jest / Czy masz? - mee nam mai krap = czy jest woda?"},
+{t:"Mai mee krap",p:"mai mee krap",e:"Nie ma - sprzedawca odpowiada gdy czegos brak."},
+{t:"Diao na krap",p:"diao na krap",e:"Chwileczke - gdy ktos na Ciebie czeka: diao na krap!"},
+{t:"Ro gon na krap",p:"ro gon na krap",e:"Poczekaj chwile - do zony gdy nie jestes gotowy."},
+{t:"Dai krap",p:"dai krap",e:"Dobrze / Moge / OK - uniwersalna pozytywna odpowiedz."}
+]},
+{d:3,top:"Pytania o cene i zakupy",foc:"Targ i sklep codziennie",ex:[
+{t:"Tao-rai krap?",p:"tao-rai krap",e:"Ile kosztuje? - pierwsze pytanie na kazdym stoisku."},
+{t:"Paeng pai krap",p:"paeng pai krap",e:"Za drogo - mowisz spokojnie, bez agresji, z usmiechem."},
+{t:"Lot dai mai krap?",p:"lot dai mai krap",e:"Czy mozna obnizyc cene? - klasyczne targowanie w Korat."},
+{t:"Lot hai noi dai mai?",p:"lot hai noi dai mai",e:"Daj mi maly rabat - bardziej uprzejma wersja targowania."},
+{t:"Seu song chin lot dai mai?",p:"seu song chin lot dai mai",e:"Kupie dwie sztuki, dam rabat? - skuteczne na targu."},
+{t:"Ao ra-ka nee dai mai?",p:"ao ra-ka nee dai mai",e:"Czy przyjmiesz te cene? - po tym jak zaproponujesz kwote."},
+{t:"Mai seu lew krap",p:"mai seu lew krap",e:"Nie kupie juz - gdy cena nie odpowiada, odchodzisz."},
+{t:"Ao loey krap",p:"ao loey krap",e:"Biore - gdy zgodzisz sie na cene i zamykasz transakcje."},
+{t:"Mee tung mai krap?",p:"mee tung mai krap",e:"Czy jest torebka? - po zakupie na targu."},
+{t:"Ton ngern duay krap",p:"ton ngern duay krap",e:"Prosze o reszte - gdy dajesz wiekszy banknot."}
+]},
+{d:4,top:"Jedzenie i restauracja",foc:"Codziennosc w Korat",ex:[
+{t:"A-roi mak krap",p:"a-roi mak krap",e:"Bardzo pyszne - mowisz to zawsze po posilku u tesciowej."},
+{t:"Kor me-nu noi krap",p:"kor me-nu noi krap",e:"Poprosze menu - w kazdej restauracji."},
+{t:"Sang... krap",p:"sang ... krap",e:"Zamawiam... - sang kao pad gai krap = zamawiam ryz z kurczakiem."},
+{t:"Mai pet krap",p:"mai pet krap",e:"Bez ostrzonosci - kluczowe w Isaan gdzie jedzenie BARDZO ostre."},
+{t:"Pet nit noi krap",p:"pet nit noi krap",e:"Troche ostrego - gdy chcesz sprobowac ale nie za bardzo."},
+{t:"Im lew krap",p:"im lew krap",e:"Najadlem sie - po posilku, szczegolnie u rodziny zony."},
+{t:"A-roi jing-jing krap",p:"a-roi jing-jing krap",e:"Naprawde pyszne - gospodyni bedzie zachwycona."},
+{t:"Kor nam plao duay krap",p:"kor nam plao duay krap",e:"Poprosze tez wode - do kelnera."},
+{t:"Chek bin duay krap",p:"chek bin duay krap",e:"Poprosze rachunek - na koncu posilku."},
+{t:"Tan kao reu yang?",p:"tan kao reu yang",e:"Czy juz jadles? - popularne powitanie zamiast jak sie masz."}
+]},
+{d:5,top:"Pytania o miejsce i droge",foc:"Orientujesz sie w Korat",ex:[
+{t:"Yoo tee-nai krap?",p:"yoo tee-nai krap",e:"Gdzie jest / Gdzie jestes? - pytasz o sklep, toalete, kogos."},
+{t:"Pai yang-ngai krap?",p:"pai yang-ngai krap",e:"Jak tam dojsc? - do taksowkarza lub przechodni."},
+{t:"Glai mai krap?",p:"glai mai krap",e:"Czy daleko? - zanim zdecydujesz sie isc piechotka."},
+{t:"Glai kae-nai?",p:"glai kae-nai",e:"Jak blisko? - gdy slyszysz glai glai = blisko blisko."},
+{t:"Liao sai reu kwa?",p:"liao sai reu kwa",e:"Skrecic w lewo czy w prawo? - w trakcie szukania drogi."},
+{t:"Trong pai loey krap",p:"trong pai loey krap",e:"Prosto - gdy ktos pyta Ciebie o droge."},
+{t:"Yoo trong nan",p:"yoo trong nan",e:"Jest tam - wskazujesz palcem kierunek."},
+{t:"Kap rot pai dai mai?",p:"kap rot pai dai mai",e:"Czy mozna dojechac samochodem? - przed wyjazdem."},
+{t:"Jot rot tee-nai dai?",p:"jot rot tee-nai dai",e:"Gdzie mozna zaparkowac? - w centrum Korat."},
+{t:"Hang kae-nai krap?",p:"hang kae-nai krap",e:"Jak daleko? - pytasz o odleglosc do celu."}
+]},
+{d:6,top:"Emocje i samopoczucie",foc:"Mowisz jak sie czujesz",ex:[
+{t:"Dee-jai mak krap",p:"dee-jai mak krap",e:"Bardzo sie ciesze - gdy zona przynosi dobre wiesci."},
+{t:"Pen huang krap",p:"pen huang krap",e:"Martwi sie - do zony gdy cos Cie niepokoi."},
+{t:"Nuay mak krap",p:"nuay mak krap",e:"Bardzo zmeczony - po dlugim dniu pracy."},
+{t:"Mai sa-bai krap",p:"mai sa-bai krap",e:"Niedobrze mi / Choruje - do zony gdy zle sie czujesz."},
+{t:"Hiu kao lew krap",p:"hiu kao lew krap",e:"Juz jestem glodny - do zony gdy pora na jedzenie."},
+{t:"Ron mak krap",p:"ron mak krap",e:"Bardzo goraco - codziennie w Korat od marca do maja."},
+{t:"Mee kwaam-suk mak krap",p:"mee kwaam-suk mak krap",e:"Jestem bardzo szczesliwy - gdy mowisz jak dobrze Ci w Tajlandii."},
+{t:"Kit-tung krap",p:"kit-tung krap",e:"Tseknie - do rodziny w Polsce gdy dzwonisz."},
+{t:"Sa-nuk mak krap",p:"sa-nuk mak krap",e:"Bardzo fajnie / Swietna zabawa - po udanym wieczorze."},
+{t:"Grot mai dai reuang",p:"grot mai dai reuang",e:"Nie warto sie zloscic - mowisz sam do siebie lub do zony."}
+]},
+{d:7,top:"Czas i plany",foc:"Umawiasz sie i planujesz",ex:[
+{t:"Wan-nee pai nai?",p:"wan-nee pai nai",e:"Dokad dzisiaj idziemy? - rano pytasz zone o plan."},
+{t:"Prung-nee mee a-rai mai?",p:"prung-nee mee a-rai mai",e:"Czy jutro cos jest? - planujesz nastepny dzien."},
+{t:"Gee mong krap?",p:"gee mong krap",e:"Ktora godzina? - gdy nie masz telefonu pod reka."},
+{t:"Nat gan gee mong?",p:"nat gan gee mong",e:"Na ktora sie umawiamy? - ustawiasz spotkanie."},
+{t:"Pai duay-gan mai?",p:"pai duay-gan mai",e:"Idziemy razem? - zapraszasz zone lub rodzine."},
+{t:"Diao ma krap",p:"diao ma krap",e:"Zaraz przyjde - gdy ktos na Ciebie czeka."},
+{t:"Ma teung lew krap",p:"ma teung lew krap",e:"Juz dotarlem - SMSujesz lub mowisz gdy przyjeZdzasz."},
+{t:"Cha noi na krap",p:"cha noi na krap",e:"Troche sie spoznie - uprzedzasz kogos wczesniej."},
+{t:"Set lew krap",p:"set lew krap",e:"Skonczylem / Gotowe - po wykonaniu zadania."},
+{t:"Yang mai set krap",p:"yang mai set krap",e:"Jeszcze nie skonczylem - gdy zona pyta czy gotowe."}
+]}
+]},
+{w:2,title:"Rodzina",sub:"Rozmowy z rodzina zony i sasiadami",days:[
+{d:8,top:"Rodzina i relacje",foc:"Klucz do serca Tajlandczykow",ex:[
+{t:"Krob-krua pen yang-ngai bang?",p:"krob-krua pen yang-ngai bang",e:"Jak sie miewa rodzina? - grzecznosciowe pytanie do tesciow."},
+{t:"Por mae sa-bai dee mai?",p:"por mae sa-bai dee mai",e:"Czy tata i mama czuja sie dobrze? - do zony o jej rodzicach."},
+{t:"Fak kwaam kit-tung duay",p:"fak kwaam kit-tung duay",e:"Przekaz pozdrowienia - do tesciow gdy rozmawiasz przez telefon."},
+{t:"Ban nee op-un mak",p:"ban nee op-un mak",e:"Ten dom jest bardzo ciepły i rodzinny - komplement dla rodziny."},
+{t:"Yin-dee tee dai roo-jak krap",p:"yin-dee tee dai roo-jak krap",e:"Milo mi Cie poznac - przy pierwszym spotkaniu z rodzina."},
+{t:"Kop-kun tee ton-rap krap",p:"kop-kun tee ton-rap krap",e:"Dziekuje za goscinnosc - po wizycie u rodziny zony."},
+{t:"Krob-krua kun dee mak krap",p:"krob-krua kun dee mak krap",e:"Twoja rodzina jest bardzo dobra - do zony po wizycie."},
+{t:"Yak ma tiao ban boi boi",p:"yak ma tiao ban boi boi",e:"Chce czesto przyjeZdzac do domu rodziny - do tesciow."},
+{t:"Roo-seuk meuan ban tua-eng",p:"roo-seuk meuan ban tua-eng",e:"Czuje sie jak u siebie - najladniejszy komplement dla rodziny."},
+{t:"Chok-dee tee dai taeng-ngan gap look-sao tan",p:"chok-dee tee dai taeng-ngan gap look-sao tan",e:"Mam szczescie ze ozenilem sie z Twoja corka - do tescia."}
+]},
+{d:9,top:"Dom i codziennosc",foc:"Zycie w domu w Korat",ex:[
+{t:"Chuay a-rai dai bang mai krap?",p:"chuay a-rai dai bang mai krap",e:"Czy moge w czyms pomoc? - do zony lub tesciowej w kuchni."},
+{t:"Hai pom tam eng dai krap",p:"hai pom tam eng dai krap",e:"Moge to zrobic sam - gdy ktos chce Cie wyreczyc."},
+{t:"Wang wai tee-nai dee krap?",p:"wang wai tee-nai dee krap",e:"Gdzie to polozyc? - gdy przynosisz cos do domu."},
+{t:"Kong nee yoo tee-nai krap?",p:"kong nee yoo tee-nai krap",e:"Gdzie jest ta rzecz? - gdy czegos szukasz w domu."},
+{t:"Poet air dai mai krap?",p:"poet air dai mai krap",e:"Czy mozna wlaczyc klimatyzacje? - w Korat niezbedne."},
+{t:"Pit fai duay na",p:"pit fai duay na",e:"Wylacz swiatlo - mowisz wychodzac z pokoju."},
+{t:"Nam ron yoo tee-nai?",p:"nam ron yoo tee-nai",e:"Gdzie jest goraca woda? - w nowym domu lub u rodziny."},
+{t:"Lang jan hai dai mai krap?",p:"lang jan hai dai mai krap",e:"Moge umyc naczynia? - pokazujesz inicjatywe w domu."},
+{t:"Ban suay mak krap",p:"ban suay mak krap",e:"Dom jest bardzo piekny - komplement dla tesciow."},
+{t:"Sa-at mak krap",p:"sa-at mak krap",e:"Bardzo czysto - po sprzataniu lub w cudzym domu."}
+]},
+{d:10,top:"Praca i pieniadze",foc:"Rozmowy o zyciu praktycznym",ex:[
+{t:"Tam-ngan a-rai krap?",p:"tam-ngan a-rai krap",e:"Czym sie zajmujesz? - poznajac nowe osoby."},
+{t:"Tam-ngan tee-nai krap?",p:"tam-ngan tee-nai krap",e:"Gdzie pracujesz? - przy blizszym poznaniu."},
+{t:"Ngern-deuan tao-rai?",p:"ngern-deuan tao-rai",e:"Ile zarabiasz? - Tajowie pytaja bez skrepowania, to normalne."},
+{t:"Ngan nak mai krap?",p:"ngan nak mai krap",e:"Czy praca jest ciezka? - do kogos kto wrocil z pracy."},
+{t:"Mee ngan tam yoo mai?",p:"mee ngan tam yoo mai",e:"Czy masz prace? - do kogos kto szuka zatrudnienia."},
+{t:"Ka-chai-jai deuan nee tao-rai?",p:"ka-chai-jai deuan nee tao-rai",e:"Ile wydatkow w tym miesiacu? - do zony przy planowaniu budzetu."},
+{t:"Pra-yat noi na",p:"pra-yat noi na",e:"Oszczedzaj troche - mowisz do siebie lub zony."},
+{t:"On-ngern hai lew na",p:"on-ngern hai lew na",e:"Juz przelalaem pieniadze - informujesz rodzine."},
+{t:"Kat ngern nit noi",p:"kat ngern nit noi",e:"Brakuje mi troche pieniedzy - do zony."},
+{t:"Jai duay bat dai mai?",p:"jai duay bat dai mai",e:"Czy mozna zaplacic karta? - w sklepie lub restauracji."}
+]},
+{d:11,top:"Zdrowie i apteka",foc:"Niezbedne w kazdym kraju",ex:[
+{t:"Mai sa-bai krap",p:"mai sa-bai krap",e:"Niedobrze mi / Choruje - pierwsze zdanie do zony gdy zle sie czujesz."},
+{t:"Puad hua mak krap",p:"puad hua mak krap",e:"Bardzo boli mnie glowa - do zony lub lekarza."},
+{t:"Puad tong krap",p:"puad tong krap",e:"Boli mnie brzuch - czeste po nieznajomym jedzeniu."},
+{t:"Mee kai krap",p:"mee kai krap",e:"Mam goraczke - do zony lub przy wizycie lekarskiej."},
+{t:"Kor ya-gae-puad duay krap",p:"kor ya-gae-puad duay krap",e:"Poprosze srodek przeciwbolowy - w aptece."},
+{t:"Pae ya a-rai bang mai?",p:"pae ya a-rai bang mai",e:"Czy jestes uczulony na jakies leki? - lekarz pyta Ciebie."},
+{t:"Pai ha mor dee gwa na",p:"pai ha mor dee gwa na",e:"Lepiej idz do lekarza - zona mowi Ci gdy dlugo chorujesz."},
+{t:"Rong-pa-ya-ban yoo tee-nai krap?",p:"rong-pa-ya-ban yoo tee-nai krap",e:"Gdzie jest szpital? - w naglej sytuacji."},
+{t:"Non pak gon na",p:"non pak gon na",e:"Najpierw odpocznij - zona mowi do Ciebie gdy chorujesz."},
+{t:"Dee keun lew krap",p:"dee keun lew krap",e:"Juz lepiej - informujesz zone ze czujesz sie lepiej."}
+]},
+{d:12,top:"Transport i podroze",foc:"Poruszasz sie po Korat",ex:[
+{t:"Pai song duay dai mai krap?",p:"pai song duay dai mai krap",e:"Czy mozesz mnie podwiesc? - do zony lub znajomego."},
+{t:"Rot tit mak loey",p:"rot tit mak loey",e:"Duzy korek - tlumaczysz dlaczego sie spozniles."},
+{t:"Jot trong nee dai loey krap",p:"jot trong nee dai loey krap",e:"Mozesz tu zaparkowac - do kierowcy taksowki lub zony."},
+{t:"Teung lew krap",p:"teung lew krap",e:"Juz dotarlem / Juz tu jestesmy - do zony gdy dojeZdzasz."},
+{t:"Glai teung lew na",p:"glai teung lew na",e:"Juz prawie na miejscu - informujesz przez telefon."},
+{t:"Toem nam-man duay na",p:"toem nam-man duay na",e:"Zatankuj tez - gdy ktos bierze samochod."},
+{t:"Kap cha-cha na krap",p:"kap cha-cha na krap",e:"Jedz powoli - prosisz kierowce o ostroznosc."},
+{t:"Kap ra-wang duay na",p:"kap ra-wang duay na",e:"Jedz ostroznieznie - mowisz do zony gdy wyjedza sama."},
+{t:"Nang taek-see dee gwa",p:"nang taek-see dee gwa",e:"Lepiej wezmy taksowke - gdy nie chcesz szukac parkingu."},
+{t:"Ka-dern-tang tao-rai?",p:"ka-dern-tang tao-rai",e:"Ile kosztuje przejazd? - przed wsiadaniem do taksowki."}
+]},
+{d:13,top:"Pogoda i small talk",foc:"Rozmowa z sasiadami",ex:[
+{t:"Ron mak wan-nee loey",p:"ron mak wan-nee loey",e:"Dzisiaj naprawde goraco - otwierasz kazda rozmowe z sasiadem."},
+{t:"A-kat dee mak wan-nee",p:"a-kat dee mak wan-nee",e:"Dzisiaj bardzo ladna pogoda - rzadki chlodniejszy dzien."},
+{t:"Fon ja tok mai na?",p:"fon ja tok mai na",e:"Czy bedzie padac? - gdy niebo jest zachmurzone."},
+{t:"Fon tok nak mak loey",p:"fon tok nak mak loey",e:"Pada bardzo mocno - komentarz podczas tropikalnej ulewy."},
+{t:"A-kat yen dee na",p:"a-kat yen dee na",e:"Przyjemnie chlodno - w Korat od grudnia do lutego."},
+{t:"Lom raeng mak loey",p:"lom raeng mak loey",e:"Bardzo silny wiatr - podczas pory burzowej."},
+{t:"Daet jat mak wan-nee",p:"daet jat mak wan-nee",e:"Slonce dzisiaj bardzo mocne - ostrzezenie przed wyjsciem."},
+{t:"Pai tiao nai dee na?",p:"pai tiao nai dee na",e:"Gdzie fajnie pojechac? - planowanie weekendu z zona."},
+{t:"Tam-ma-chat suay mak krap",p:"tam-ma-chat suay mak krap",e:"Przyroda jest bardzo piekna - podczas wycieczki."},
+{t:"Yak yoo tee-nee pai reuay reuay",p:"yak yoo tee-nee pai reuay reuay",e:"Chcialby zostac tu na zawsze - mowisz gdy Ci tu dobrze."}
+]},
+{d:14,top:"Opinie i preferencje",foc:"Wyrazasz siebie",ex:[
+{t:"Chop mak krap",p:"chop mak krap",e:"Bardzo lubie - do jedzenia, miejsca, muzyki, czegokolwiek."},
+{t:"Mai koi chop krap",p:"mai koi chop krap",e:"Nie bardzo lubie - grzeczna forma odmowy lub niecheci."},
+{t:"Dee gwa tee kit loey",p:"dee gwa tee kit loey",e:"Lepsze niz sie spodziewalem - szczery komplement."},
+{t:"Yak long krap",p:"yak long krap",e:"Chce sprobowac - gdy widzisz nowe danie lub aktywnosc."},
+{t:"Mai nae-jai krap",p:"mai nae-jai krap",e:"Nie jestem pewien - uczciwa odpowiedz gdy potrzebujesz czasu."},
+{t:"Lew tae kun loey krap",p:"lew tae kun loey krap",e:"Jak wolisz / Zdecydujesz - dajesz zonie wybor."},
+{t:"Pom kit wa...",p:"pom kit wa ...",e:"Mysle ze... - rozpoczynasz swoja opinie."},
+{t:"Hen duay krap",p:"hen duay krap",e:"Zgadzam sie - gdy zona lub ktos mowi cos trafnego."},
+{t:"Mai hen duay krap",p:"mai hen duay krap",e:"Nie zgadzam sie - wyrazasz inna opinie uprzejmie."},
+{t:"Na sa-jai mak krap",p:"na sa-jai mak krap",e:"Bardzo interesujace - gdy ktos opowiada Ci o czyms."}
+]}
+]},
+{w:3,title:"Plynnosc",sub:"Laczysz zdania, budujesz rozmowe",days:[
+{d:15,top:"Opowiadanie o sobie",foc:"Przedstawiasz sie i swoja historie",ex:[
+{t:"Pom ma-jak Po-laen krap",p:"pom ma-jak Po-laen krap",e:"Jestem z Polski - pierwsze zdanie przy poznaniu kogos nowego."},
+{t:"Yoo meuang-tai dai nan kae-nai lew?",p:"yoo meuang-tai dai nan kae-nai lew",e:"Jak dlugo juz jestes w Tajlandii? - ktos pyta Ciebie."},
+{t:"Taeng-ngan gap kon Ko-rat krap",p:"taeng-ngan gap kon Ko-rat krap",e:"Ozenilem sie z osoba z Korat - tlumaczysz dlaczego tu jestes."},
+{t:"Gam-lang rian pa-sa tai yoo krap",p:"gam-lang rian pa-sa tai yoo krap",e:"Wlasnie ucze sie tajskiego - mowisz to z duma."},
+{t:"Yang poot mai koi geng krap",p:"yang poot mai koi geng krap",e:"Jeszcze nie mowie zbyt dobrze - uczciwe i skromne wyznanie."},
+{t:"Yak rian-roo wat-ta-na-tam tai krap",p:"yak rian-roo wat-ta-na-tam tai krap",e:"Chce poznac tajska kulture - powiesz to tesciom i zdobedziesz serce."},
+{t:"Chop yoo meuang-tai mak krap",p:"chop yoo meuang-tai mak krap",e:"Bardzo lubie mieszkac w Tajlandii - po kilku tygodniach."},
+{t:"Kon tai jai-dee mak krap",p:"kon tai jai-dee mak krap",e:"Tajowie sa bardzo mili - komplement ktory zawsze dziala."},
+{t:"A-han tai a-roi mak krap",p:"a-han tai a-roi mak krap",e:"Tajskie jedzenie jest bardzo pyszne - Tajowie to uwielbiaja slyszec."},
+{t:"Tang-jai ja yoo tee-nee pai nan-nan krap",p:"tang-jai ja yoo tee-nee pai nan-nan krap",e:"Zamierzam zostac tu na dlugo - do rodziny zony, buduje zaufanie."}
+]},
+{d:16,top:"Prosby i negocjacje",foc:"Zalatwiasz sprawy samodzielnie",ex:[
+{t:"Kor kwaam-chuay-leua noi dai mai krap?",p:"kor kwaam-chuay-leua noi dai mai krap",e:"Czy moge prosic o pomoc? - formalna prosba do urzednika."},
+{t:"Chuay a-ti-bai ik tee dai mai krap?",p:"chuay a-ti-bai ik tee dai mai krap",e:"Czy mozesz wyjasnic jeszcze raz? - gdy czegos nie rozumiesz."},
+{t:"Poot cha-cha noi dai mai krap?",p:"poot cha-cha noi dai mai krap",e:"Czy mozesz mowic wolniej? - do kazdego kto mowi za szybko."},
+{t:"Kao-jai lew krap",p:"kao-jai lew krap",e:"Juz rozumiem - po wyjasnieniu, dajesz sygnal ze mozecie isac dalej."},
+{t:"Yang mai kao-jai krap",p:"yang mai kao-jai krap",e:"Jeszcze nie rozumiem - uczciwe przyznanie bez wstydu."},
+{t:"Mai kwaam wa a-rai krap?",p:"mai kwaam wa a-rai krap",e:"Co to znaczy? - gdy slyszysz niezrozumiale slowo."},
+{t:"Poot pa-sa Ang-grit dai mai krap?",p:"poot pa-sa Ang-grit dai mai krap",e:"Czy mowisz po angielsku? - ostatecznosc gdy cos waznego."},
+{t:"Kor we-la kit noi na krap",p:"kor we-la kit noi na krap",e:"Daj mi chwile do namyslu - w negocjacjach lub decyzjach."},
+{t:"Tok-long krap",p:"tok-long krap",e:"Zgadzam sie / Umowa stoi - zamykasz negocjacje lub ustalenia."},
+{t:"Mai tok-long krap",p:"mai tok-long krap",e:"Nie zgadzam sie - gdy warunki nie odpowiadaja."}
+]},
+{d:17,top:"Komplement i uprzejmosc",foc:"Budujesz relacje",ex:[
+{t:"Tam a-han geng mak krap",p:"tam a-han geng mak krap",e:"Bardzo dobrze gotujesz - do tesciowej, mow to czesto!"},
+{t:"Suay mak krap",p:"suay mak krap",e:"Bardzo piekna - do zony, do miejsca, do czegolwiek pieknego."},
+{t:"Geng mak krap",p:"geng mak krap",e:"Bardzo zdolny / Swietnie Ci idzie - do zony lub gdy ktos cos potrafi."},
+{t:"Jai-dee mak krap",p:"jai-dee mak krap",e:"Jestes bardzo mialy - do osoby ktora Ci pomogla."},
+{t:"Na-rak mak krap",p:"na-rak mak krap",e:"Bardzo slodki / Uroczy - do dzieci, zwierzat, zony."},
+{t:"Doo dee mak loey krap",p:"doo dee mak loey krap",e:"Wygladasz swietnie - do zony lub gdy ktos ma nowe ubranie."},
+{t:"Ban suay-ngam mak krap",p:"ban suay-ngam mak krap",e:"Dom jest bardzo piekny - wizyta u rodziny zony."},
+{t:"Look na-rak mak krap",p:"look na-rak mak krap",e:"Dziecko jest bardzo slodkie - u rodziny z dziecmi."},
+{t:"Kun pan-ra-ya pom doo-lae pom dee mak krap",p:"kun pan-ra-ya pom doo-lae pom dee mak krap",e:"Moja zona bardzo dobrze sie mna opiekuje - do tesciow."},
+{t:"Kop-kun mak sam-rap tuk yang krap",p:"kop-kun mak sam-rap tuk yang krap",e:"Bardzo dziekuje za wszystko - na koncu wizyty u rodziny."}
+]},
+{d:18,top:"Telefon i komunikacja",foc:"Rozmawiasz przez telefon",ex:[
+{t:"Sa-wat-dee krap, pom... na krap",p:"sa-wat-dee krap pom ... na krap",e:"Dzien dobry, tu... - zaczynasz rozmowe telefoniczna."},
+{t:"Rap sai dai mai krap?",p:"rap sai dai mai krap",e:"Czy mozesz odebrac? - gdy ktos jest zajety a dzwoni telefon."},
+{t:"Sai lut krap",p:"sai lut krap",e:"Rozlaczylto nas - gdy rozmowa sie urywa."},
+{t:"San-yan mai dee krap",p:"san-yan mai dee krap",e:"Slaby sygnal - tlumaczysz dlaczego slabo slyszysz."},
+{t:"To glap ma dai mai krap?",p:"to glap ma dai mai krap",e:"Czy mozesz oddzwonic? - gdy nie mozesz teraz rozmawiac."},
+{t:"Fak kor-kwaam duay dai mai?",p:"fak kor-kwaam duay dai mai",e:"Czy mozesz zostawic wiadomosc? - gdy kogos nie ma."},
+{t:"Song kor-kwaam ma dai loey krap",p:"song kor-kwaam ma dai loey krap",e:"Mozesz napisac SMS - gdy masz problem z rozmowa."},
+{t:"Ja to ha tee-lang na krap",p:"ja to ha tee-lang na krap",e:"Zadzwonie pozniej - gdy musisz konczyc rozmowe."},
+{t:"Baet glai mot lew krap",p:"baet glai mot lew krap",e:"Bateria prawie wyczerpana - ostrzegasz rozmowce."},
+{t:"Kui-gan tee-lang na krap",p:"kui-gan tee-lang na krap",e:"Porozmawiamy pozniej - grzeczne zakonczenie rozmowy."}
+]},
+{d:19,top:"Zakupy i uslugi",foc:"Samodzielnie zalatwiasz sprawy",ex:[
+{t:"Mee sai eun mai krap?",p:"mee sai eun mai krap",e:"Czy jest inny rozmiar? - w sklepie z ubraniami."},
+{t:"Long dai mai krap?",p:"long dai mai krap",e:"Czy moge przymierzyc? - przed zakupem ubrania."},
+{t:"Mee see eun mai krap?",p:"mee see eun mai krap",e:"Czy jest inny kolor? - gdy szukasz konkretnego koloru."},
+{t:"Kong mee pra-gan mai krap?",p:"kong mee pra-gan mai krap",e:"Czy jest gwarancja? - przy zakupie elektroniki."},
+{t:"Keun kong dai mai krap?",p:"keun kong dai mai krap",e:"Czy mozna zwrocic? - przed zakupem wazna informacja."},
+{t:"Bai-set duay krap",p:"bai-set duay krap",e:"Poprosze paragon - zawsze bierz paragon przy zakupach."},
+{t:"Cham-ra ngern tee-nai krap?",p:"cham-ra ngern tee-nai krap",e:"Gdzie placic? - gdy kasa nie jest oczywista."},
+{t:"Tat pom noi dai mai krap?",p:"tat pom noi dai mai krap",e:"Czy moze pan mnie ostrzyc? - u fryzjera."},
+{t:"Tat nit noi na krap",p:"tat nit noi na krap",e:"Prosze tylko troche przyciiac - do fryzjera."},
+{t:"Set mea-rai krap?",p:"set mea-rai krap",e:"Kiedy bedzie gotowe? - w pralni, warsztacie, restauracji."}
+]},
+{d:20,top:"Wyrazanie planow",foc:"Mowisz o przyszlosci",ex:[
+{t:"Yak ja...",p:"yak ja ...",e:"Chcialbym... - yak ja pai tiao = chcialbym pojechac na wycieczke."},
+{t:"Tang-jai ja...",p:"tang-jai ja ...",e:"Zamierzam... - tang-jai ja rian pa-sa tai = zamierzam uczyc sie tajskiego."},
+{t:"Gam-lang ja...",p:"gam-lang ja ...",e:"Wlasnie mam zamiar... - gam-lang ja pai gin kao = wlasnie ide jesc."},
+{t:"Kit wa ja...",p:"kit wa ja ...",e:"Mysle ze... - kit wa ja yoo tee-nee = mysle ze zostane tutaj."},
+{t:"Na ja...",p:"na ja ...",e:"Chyba... / Prawdopodobnie... - na ja dee = chyba bedzie dobrze."},
+{t:"Mai na ja mee pan-ha",p:"mai na ja mee pan-ha",e:"Chyba nie bedzie problemu - optymistyczne podejscie."},
+{t:"Ta wang gor ja pai krap",p:"ta wang gor ja pai krap",e:"Jesli bede wolny, to pojde - warunkowe zobowiazanie."},
+{t:"Keun yoo gap...",p:"keun yoo gap ...",e:"Zalezy od... - keun yoo gap a-kat = zalezy od pogody."},
+{t:"Triam-tua wai lew krap",p:"triam-tua wai lew krap",e:"Juz jestem przygotowany - gdy cos zaplanowaels wczesniej."},
+{t:"Yang mai dai wang-paen krap",p:"yang mai dai wang-paen krap",e:"Jeszcze nie zaplanowalem - gdy pytaja o przyszlosc."}
+]},
+{d:21,top:"Opowiadanie o przeszlosci",foc:"Budujesz dluzsze zdania",ex:[
+{t:"Mea-gee pai nai ma krap?",p:"mea-gee pai nai ma krap",e:"Gdzie bylaes przed chwila? - zona pyta gdy wracasz do domu."},
+{t:"Mea-wan pai ta-lat ma krap",p:"mea-wan pai ta-lat ma krap",e:"Wczoraj bylem na targu - opowiadasz o wczorajszym dniu."},
+{t:"Sap-da tee-lew pai tiao krap",p:"sap-da tee-lew pai tiao krap",e:"W zeszlym tygodniu pojechalem na wycieczke."},
+{t:"Gon na nee mai roo-jak loey krap",p:"gon na nee mai roo-jak loey krap",e:"Wczesniej w ogole nie znalem - o tajskim jezyku lub miejscu."},
+{t:"Perng ma teung krap",p:"perng ma teung krap",e:"Wlasnie dotarlem - gdy ktos pyta czy juz jestes na miejscu."},
+{t:"Tam pai lew krap",p:"tam pai lew krap",e:"Juz to zrobilem - gdy zona pyta czy wykonales zadanie."},
+{t:"Leum pai lew krap",p:"leum pai lew krap",e:"Juz zapomnialem - gdy nie pamietasz czegos."},
+{t:"Koey pai krap",p:"koey pai krap",e:"Bylem tam kiedys - o miejscu ktore odwiedziles wczesniej."},
+{t:"Mai koey long krap",p:"mai koey long krap",e:"Nigdy nie probowalem - o jedzeniu lub aktywnosci."},
+{t:"Jam dai krap",p:"jam dai krap",e:"Pamietam - potwierdzasz ze cos pamietasz."}
+]}
+]},
+{w:4,title:"Mistrzowstwo",sub:"Rozmawiasz naturalnie o wszystkim",days:[
+{d:22,top:"Dyskusja i argumenty",foc:"Wyrazasz zlozone mysli",ex:[
+{t:"Pom kit tang ok pai krap",p:"pom kit tang ok pai krap",e:"Mam inne zdanie - grzeczne wyrazenie roznicy pogladow."},
+{t:"Mee het-pon a-rai krap?",p:"mee het-pon a-rai krap",e:"Jaki jest powod? - pytasz o uzasadnienie decyzji."},
+{t:"Kor-dee kor-sia pen yang-ngai?",p:"kor-dee kor-sia pen yang-ngai",e:"Jakie sa plusy i minusy? - przed wazna decyzja."},
+{t:"Ta pen yang-nan...",p:"ta pen yang-nan ...",e:"Jesli tak jest to... - budujesz warunkowy argument."},
+{t:"Yang-rai gor tam...",p:"yang-rai gor tam ...",e:"Niemniej jednak... - wprowadzasz kontrargument."},
+{t:"Keun yoo gap sa-tan-ga-ran krap",p:"keun yoo gap sa-tan-ga-ran krap",e:"Zalezy od sytuacji - gdy nie ma jednej prostej odpowiedzi."},
+{t:"Pom cheua wa...",p:"pom cheua wa ...",e:"Wierze ze... / Jestem przekonany ze... - silne przekonanie."},
+{t:"Mee kwaam pen pai dai mai?",p:"mee kwaam pen pai dai mai",e:"Czy jest to mozliwe? - o planach lub propozycjach."},
+{t:"Na kit mak loey krap",p:"na kit mak loey krap",e:"To daje do myslenia - gdy ktos mowi cos madrego."},
+{t:"Long doo gon lew gan krap",p:"long doo gon lew gan krap",e:"Sprobujmy najpierw zobaczyc - ostrozne podejscie do nowych pomyslow."}
+]},
+{d:23,top:"Zycie codzienne rutyna",foc:"Opisujesz swoj dzien",ex:[
+{t:"Teun non gee mong krap?",p:"teun non gee mong krap",e:"O ktorej wstajesz? - pytanie do zony lub ona do Ciebie."},
+{t:"Tam a-rai tuk-wan bang?",p:"tam a-rai tuk-wan bang",e:"Co robisz kazdego dnia? - ktos pyta o Twoja rutyne."},
+{t:"Pok-ga-tee lew pom...",p:"pok-ga-tee lew pom ...",e:"Zazwyczaj ja... - opisujesz swoja codzienna rutyne."},
+{t:"Wan-nee tam a-rai bang?",p:"wan-nee tam a-rai bang",e:"Co dzisiaj robilaes? - zona pyta wieczorem."},
+{t:"Yung mak wan-nee loey krap",p:"yung mak wan-nee loey krap",e:"Dzisiaj bardzo bylem zajety - tlumaczysz dlaczego zmeczony."},
+{t:"Wan-nee mai koi dai tam a-rai krap",p:"wan-nee mai koi dai tam a-rai krap",e:"Dzisiaj nie robilem zbyt wiele - w dzien wolny."},
+{t:"Mee tu-ra tong tam krap",p:"mee tu-ra tong tam krap",e:"Mam cos do zalatwienia - gdy musisz wyjsc."},
+{t:"Jat-gan set lew krap",p:"jat-gan set lew krap",e:"Juz wszystko zalatwialem - po powrocie."},
+{t:"Pak-pon gon na krap",p:"pak-pon gon na krap",e:"Najpierw odpocznij - mowisz do zony lub kogos zmeczonego."},
+{t:"Wan-nee dee mak krap",p:"wan-nee dee mak krap",e:"Dzisiaj bylo swietnie - podsumowanie dobrego dnia."}
+]},
+{d:24,top:"Wartosci i kultura",foc:"Rozumiesz i szanujesz Tajlandie",ex:[
+{t:"Kao-rop ka-nop-tam-niam tai krap",p:"kao-rop ka-nop-tam-niam tai krap",e:"Szanuje tajskie tradycje - mowisz to tesciom i zdobywasz ich serce."},
+{t:"Wat-ta-na-tam tai na-sa-jai mak krap",p:"wat-ta-na-tam tai na-sa-jai mak krap",e:"Tajska kultura jest bardzo interesujaca - szczere zainteresowanie."},
+{t:"Yak rian-roo perng-toem krap",p:"yak rian-roo perng-toem krap",e:"Chce dowiedziec sie wiecej - o kulturze, tradycjach, jezyku."},
+{t:"Kor-tot ta tam a-rai pit krap",p:"kor-tot ta tam a-rai pit krap",e:"Przepraszam jesli cos zrobilem zle - gdy nie znasz obyczajow."},
+{t:"Chuay son pom duay na krap",p:"chuay son pom duay na krap",e:"Prosze mnie naucz - do tesciow o tradycjach i obyczajach."},
+{t:"Pra-tet tai suay-ngam mak krap",p:"pra-tet tai suay-ngam mak krap",e:"Tajlandia jest bardzo piekna - szczery komplement dla Tajow."},
+{t:"Kon tai na-rak mak krap",p:"kon tai na-rak mak krap",e:"Tajowie sa bardzo mili - zawsze dobrze przyjmowane."},
+{t:"Yak yoo tee-nee ta-lot pai krap",p:"yak yoo tee-nee ta-lot pai krap",e:"Chce tu zostac na zawsze - do tesciow, buduje wiec."},
+{t:"Roo-seuk pen suan-neung kong krob-krua lew krap",p:"roo-seuk pen suan-neung kong krob-krua lew krap",e:"Czuje sie juz czescia rodziny - po dluzszym czasie."},
+{t:"Kop-kun tee rap pom pen krob-krua krap",p:"kop-kun tee rap pom pen krob-krua krap",e:"Dziekuje ze przyjeli mnie do rodziny - do tesciow."}
+]},
+{d:25,top:"Humor i luzna rozmowa",foc:"Rozmawiasz naturalnie i zartujesz",ex:[
+{t:"Ta-lok mak loey krap",p:"ta-lok mak loey krap",e:"To bardzo smiesznie - gdy cos Cie rozsmiesza."},
+{t:"Lo-len na krap",p:"lo-len na krap",e:"Zartowalem - gdy chcesz wyjasniac ze to byl zart."},
+{t:"Mai na-cheua loey krap",p:"mai na-cheua loey krap",e:"Nie do wiary / Nie moge uwierzyc - przy zaskakujacych wiesciach."},
+{t:"Jing reu plao krap?",p:"jing reu plao krap",e:"Naprawde? / Serio? - gdy cos wydaje Ci sie nieprawdopodobne."},
+{t:"Yiam mak loey krap",p:"yiam mak loey krap",e:"Wspaniale! / Znakomite! - entuzjastyczna reakcja na cos dobrego."},
+{t:"Chok-dee jing-jing krap",p:"chok-dee jing-jing krap",e:"Naprawde mam szczescie - o swoim zyciu w Tajlandii."},
+{t:"Mai kat-fan loey krap",p:"mai kat-fan loey krap",e:"Nie spodziewalem sie tego - przy niespodziance."},
+{t:"Meuan fan loey krap",p:"meuan fan loey krap",e:"To jak sen - gdy cos jest wyjatkowo piekne lub szczesliwe."},
+{t:"Chee-wit dee mak krap",p:"chee-wit dee mak krap",e:"Zycie jest swietne - ogolne podsumowanie zadowolenia."},
+{t:"Kam mak loey krap",p:"kam mak loey krap",e:"To bardzo zabawne - smiejesz sie z czegos co sie stalo."}
+]},
+{d:26,top:"Sytuacje trudne i awaryjne",foc:"Radzisz sobie w kazdej sytuacji",ex:[
+{t:"Chuay duay krap!",p:"chuay duay krap",e:"Pomocy! - w sytuacji zagrozenia krzyczysz glosno."},
+{t:"Riak tam-ruat duay krap",p:"riak tam-ruat duay krap",e:"Prosze wezwac policje - do kogos obok w naglej sytuacji."},
+{t:"Mee kon jep krap",p:"mee kon jep krap",e:"Jest ranna osoba - do ratownikow lub tlumu."},
+{t:"To jaeng duan krap",p:"to jaeng duan krap",e:"Prosze pilnie zadzwonic - gdy potrzebujesz pomocy szybko."},
+{t:"Kong hai krap",p:"kong hai krap",e:"Zgubilem cos - na policji lub do zony."},
+{t:"Gra-pao hai krap",p:"gra-pao hai krap",e:"Zgubilem portfel / torebke - do policji lub w hotelu."},
+{t:"Don ka-moy krap",p:"don ka-moy krap",e:"Zostalem okradziony - do policji lub zony."},
+{t:"Tong-gan lam krap",p:"tong-gan lam krap",e:"Potrzebuje tlumacza - w urzedzie lub szpitalu."},
+{t:"Tit-tor sa-tan-toot dai tee-nai?",p:"tit-tor sa-tan-toot dai tee-nai",e:"Gdzie mozna skontaktowac sie z ambasada? - w skrajnej sytuacji."},
+{t:"Mai pen rai krap kop-kun krap",p:"mai pen rai krap kop-kun krap",e:"Nie ma sprawy, dziekuje - gdy ktos pomogl Ci w trudnej chwili."}
+]},
+{d:27,top:"Jezyk Isaan Korat",foc:"Rozumiesz rodzine zony",ex:[
+{t:"Bo",p:"bo",e:"Nie - isaaski odpowiednik mai. Uslyszysz to w domu zony caly czas."},
+{t:"Doe",p:"doe",e:"Slowo wzmacniajace na koncu zdania - jak na ale bardziej Isaan."},
+{t:"Si",p:"si",e:"Wzmocnienie rozkazu lub sugestii - pai si = idz no!"},
+{t:"Kak",p:"kak",e:"Bardzo - isaaskie mak. A-roi kak = bardzo pyszne po isaasku."},
+{t:"Lai",p:"lai",e:"Duzo / Wiele - lai kak = bardzo duzo po isaasku."},
+{t:"Het",p:"het",e:"Robic - isaaskie tam. Het a-rai = co robisz?"},
+{t:"Gin",p:"gin",e:"Jesc - to samo w standardowym tajskim! Uzywane wszedzie."},
+{t:"Ma heuan",p:"ma heuan",e:"Chodzdo domu - isaaskie ma ban. Tesciowa wola na obiad."},
+{t:"Jao pen yang?",p:"jao pen yang",e:"Jak sie masz? - isaaskie pen yang-ngai. Bardziej lokalne."},
+{t:"Ok sa-bai dee",p:"ok sa-bai dee",e:"OK, dobrze - mieszanka angielskiego i tajskiego, powszechna w Korat."}
+]},
+{d:28,top:"Wielki final 10 najwazniejszych",foc:"Esencja calego kursu",ex:[
+{t:"Kop-kun sam-rap tuk yang krap",p:"kop-kun sam-rap tuk yang krap",e:"Dziekuje za wszystko - mowisz to rodzinie zony z glebi serca."},
+{t:"Pom pa-ya-yam poot pa-sa tai hai dee keun tuk-wan krap",p:"pom pa-ya-yam poot pa-sa tai hai dee keun tuk-wan krap",e:"Staram sie mowic po tajsku coraz lepiej kazdego dnia."},
+{t:"Yang mee a-rai tee tong rian-roo ik mak krap",p:"yang mee a-rai tee tong rian-roo ik mak krap",e:"Nadal jest wiele do nauczenia sie - pokora i motywacja."},
+{t:"Pa-sa tai yak tae sa-nuk mak krap",p:"pa-sa tai yak tae sa-nuk mak krap",e:"Tajski jest trudny ale bardzo fajny - Tajowie to uwielbiaja slyszec."},
+{t:"Krob-krua nee keu krob-krua pom duay krap",p:"krob-krua nee keu krob-krua pom duay krap",e:"Ta rodzina to tez moja rodzina - do tesciow, buduje silna wiez."},
+{t:"Pra-tet tai keu ban tee-song kong pom krap",p:"pra-tet tai keu ban tee-song kong pom krap",e:"Tajlandia to moj drugi dom - glebokal deklaracja przynaleznosci."},
+{t:"Rak meuang-tai mak krap",p:"rak meuang-tai mak krap",e:"Bardzo kocham Tajlandie - prosto z serca."},
+{t:"Rak pan-ra-ya pom mak tee-sut nai lok krap",p:"rak pan-ra-ya pom mak tee-sut nai lok krap",e:"Kocham moja zone najbardziej na swiecie - do tesciow."},
+{t:"Kop-kun tee son pa-sa lae wat-ta-na-tam hai krap",p:"kop-kun tee son pa-sa lae wat-ta-na-tam hai krap",e:"Dziekuje ze uczycie mnie jezyka i kultury - do calej rodziny."},
+{t:"Ja poot pa-sa tai dai dee keun reuay-reuay krap",p:"ja poot pa-sa tai dai dee keun reuay-reuay krap",e:"Bede mowil po tajsku coraz lepiej - obietnica na przyszlosc."}
+]}
+]}
+];
+
+var aW=0,aD=null,mode='list',comp={},fcI=0,fcR=false,fcK={};
+
+function load(){try{var s=localStorage.getItem('tw-v3');if(s)comp=JSON.parse(s);}catch(e){}}
+function save(){try{localStorage.setItem('tw-v3',JSON.stringify(comp));}catch(e){}}
+function resetP(){if(confirm('Zresetowac postepy?')){comp={};save();upd();rdDays();}}
+function upd(){
+  var c=Object.values(comp).filter(Boolean).length;
+  var p=Math.round(c/28*100);
+  document.getElementById('plabel').textContent=c+'/28 dni \u00b7 '+p+'%';
+  document.getElementById('pfill').style.width=p+'%';
+}
+function setMode(m){
+  mode=m;
+  document.getElementById('btnL').classList.toggle('active',m==='list');
+  document.getElementById('btnF').classList.toggle('active',m==='flash');
+  if(aD!==null)rdDays();
+}
+function rdTabs(){
+  var h=D.map(function(w,i){
+    return '<div class="wtab'+(i===aW?' active':'')+'" onclick="selW('+i+')"><div class="wtn">Tydz. '+w.w+'</div><div class="wtt">'+w.title+'</div></div>';
+  }).join('');
+  document.getElementById('wtabs').innerHTML=h;
+  document.getElementById('wsub').textContent=D[aW].sub;
+}
+function selW(i){aW=i;aD=null;rdTabs();rdDays();}
+function togDay(i){
+  if(aD===i){aD=null;}else{aD=i;fcI=0;fcR=false;fcK={};}
+  rdDays();
+}
+function togDone(dayNum,ev){
+  ev.stopPropagation();
+  comp[dayNum]=!comp[dayNum];
+  save();upd();rdDays();
+}
+function listHTML(day){
+  var rows=day.ex.map(function(e,i){
+    return '<div class="ei"><div class="en">'+String(i+1).padStart(2,'0')+'</div><div class="ec"><div class="eth">'+e.t+'</div><div class="eph">'+e.p+'</div><div class="eex">'+e.e+'</div></div></div>';
+  }).join('');
+  return '<div class="elist">'+rows+'</div>';
+}
+function flashHTML(day){
+  var tot=day.ex.length;
+  var e=day.ex[fcI];
+  var kc=Object.values(fcK).filter(Boolean).length;
+  var dots=day.ex.map(function(_,i){
+    var c='fdot';
+    if(i===fcI)c+=' active';
+    else if(fcK[i]===true)c+=' known';
+    return '<div class="'+c+'"></div>';
+  }).join('');
+  var btns=fcR?
+    '<div class="fbts"><button class="fbt bad" onclick="fcAns('+day.d+','+tot+',false)">\u2717 Nie znam</button><button class="fbt good" onclick="fcAns('+day.d+','+tot+',true)">\u2713 Znam</button></div>':
+    '<div class="fbts"><button class="fbt nxt" onclick="revCard()">Odkryj \u2192</button></div>';
+  return '<div class="fm"><div class="fnav"><div class="fco">'+(fcI+1)+' / '+tot+' \u00b7 '+kc+' znam</div><div class="fdots">'+dots+'</div></div>'+
+    '<div class="fc'+(fcR?' rev':'')+'" onclick="revCard()">'+
+    '<div class="ffront'+(fcR?' hide':'')+'""><div class="fthai">'+e.t+'</div><div class="fhint">\u2193 dotknij aby odkryc</div></div>'+
+    '<div class="fback'+(fcR?' show':'')+'""><div class="fph">'+e.p+'</div><div class="fex">'+e.e+'</div></div>'+
+    '</div>'+btns+'</div>';
+}
+function revCard(){fcR=true;rdDays();}
+function fcAns(dayNum,tot,known){
+  fcK[fcI]=known;
+  if(fcI<tot-1){fcI++;fcR=false;}else{fcR=false;}
+  rdDays();
+}
+function rdDays(){
+  var week=D[aW];
+  var h=week.days.map(function(day,i){
+    var done=!!comp[day.d];
+    var open=aD===i;
+    var body=open?('<div class="db open">'+(mode==='list'?listHTML(day):flashHTML(day))+'</div>'):'';
+    return '<div class="dc">'+
+      '<div class="dh'+(open?' open':'')+'" onclick="togDay('+i+')">'+
+      '<button class="cb'+(done?' done':'')+'" onclick="togDone('+day.d+',event)">'+(done?'\u2713':'')+'</button>'+
+      '<div class="dm"><div class="dt"><span class="dn">DZIE\u0143 '+day.d+'</span><span class="dti">10 wyrazen</span></div>'+
+      '<div class="dtop'+(done?' done':'')+'">"'+day.top+'"</div>'+
+      '<div class="df">'+day.foc+'</div></div>'+
+      '<div class="da'+(open?' open':'')+'">\u203a</div>'+
+      '</div>'+body+'</div>';
+  }).join('');
+  document.getElementById('days').innerHTML=h;
+}
+load();upd();rdTabs();rdDays();
+</script>
+</body>
+</html>
